@@ -1,16 +1,24 @@
-# React + Vite
+# Вебзастосунок сервісного центру комп'ютерної техніки
+Онлайн-замовлення та супровід послуг ремонту.
+Поточний результат: початкова сторінка з локальними даними.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Середовище
+* Node.js: 24 LTS
+* npm: поточна версія
+* Git: поточна версія
+* Docker i Docker Compose: поточні версії
+* Основний варіант: Docker Desktop із WSL 2
 
-Currently, two official plugins are available:
+## Запуск
+Нативно: `npm install`, потім `npm run dev`.
+Docker: `docker compose build`, `docker compose run --rm web npm install`, потім `docker compose up`.
+Адреса Docker: http://localhost:5173.
+Зупинення й видалення контейнера: `docker compose down`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Збірка
+`npm run build`
+Або: `docker compose run --rm web npm run build`
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## План
+Див. `docs/project-plan.md`.
+Форми й маршрути ще заплановані.
