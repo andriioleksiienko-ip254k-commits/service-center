@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router'
+import PageHeading from '../components/ui/PageHeading.jsx'
 import Section from '../components/ui/Section.jsx'
 import EmptyState from '../components/ui/EmptyState.jsx'
 import AppButton from '../components/ui/AppButton.jsx'
@@ -10,23 +12,14 @@ function createEmptyDraft() {
   return { deviceType: '', brand: '', model: '', problem: '' }
 }
 
-
+// item: вибрана послуга або undefined
+// onClearSelection: просить власника вибору скасувати вибір
+// Власник draft: ця сторінка, бо чернетку бачать і форма, і підсумок.
+// Заголовок вкладки тепер синхронізує PageHeading, тому власного ефекту тут немає.
 export default function RequestPage({ item, onClearSelection }) {
   const [draft, setDraft] = useState(createEmptyDraft)
 
-  
-  const title = item ? `FixIT Service: ${item.name}` : 'FixIT Service'
-
-  
-  useEffect(() => {
-    const previousTitle = document.title
-    document.title = title
-    return () => {
-      document.title = previousTitle
-    }
-  }, [title])
-
- 
+  // Функціональне оновлення з копіюванням: решта полів чернетки зберігається
   function handleFieldChange(field, value) {
     setDraft((previous) => ({ ...previous, [field]: value }))
   }
@@ -35,37 +28,41 @@ export default function RequestPage({ item, onClearSelection }) {
     setDraft(createEmptyDraft())
   }
 
-  
+  // Хуки вище умовного повернення: порядок їхніх викликів не змінюється
   if (!item) {
     return (
-      <Section id="request" title="Підготовка заявки">
+      <>
+        <PageHeading title="Підготовка заявки" />
         <EmptyState title="Послугу ще не вибрано.">
           <p>
-            Виберіть послугу в <a href="#catalog">каталозі</a>, щоб підготувати
-            чернетку заявки.
+            Виберіть послугу в <Link to="/services">каталозі</Link>, щоб
+            підготувати чернетку заявки.
           </p>
         </EmptyState>
-      </Section>
+      </>
     )
   }
 
   return (
-    <Section id="request" title="Підготовка заявки">
-      <p>
-        Вибрана послуга: «{item.name}»{' '}
-        <AvailabilityBadge available={item.available} />
-      </p>
-      <RequestForm
-        idPrefix="request-draft"
-        serviceName={item.name}
-        draft={draft}
-        onFieldChange={handleFieldChange}
-        onReset={handleReset}
-      />
-      <RequestSummary serviceName={item.name} draft={draft} />
-      <AppButton variant="secondary" onClick={onClearSelection}>
-        Скасувати вибір і очистити чернетку
-      </AppButton>
-    </Section>
+    <>
+      <PageHeading title={`Заявка: ${item.name}`} />
+      <Section id="request" title="Дані заявки">
+        <p>
+          Вибрана послуга: «{item.name}»{' '}
+          <AvailabilityBadge available={item.available} />
+        </p>
+        <RequestForm
+          idPrefix="request-draft"
+          serviceName={item.name}
+          draft={draft}
+          onFieldChange={handleFieldChange}
+          onReset={handleReset}
+        />
+        <RequestSummary serviceName={item.name} draft={draft} />
+        <AppButton variant="secondary" onClick={onClearSelection}>
+          Скасувати вибір і очистити чернетку
+        </AppButton>
+      </Section>
+    </>
   )
 }

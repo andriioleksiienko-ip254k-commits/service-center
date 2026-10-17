@@ -1,6 +1,12 @@
+import { Outlet } from 'react-router'
 import SiteHeader from './SiteHeader.jsx'
+import ServiceSelectionProvider from '../../providers/ServiceSelectionProvider.jsx'
 
-export default function AppLayout({ title, links, children }) {
+// Маршрут-оболонка: дочірня сторінка з'являється в Outlet.
+// Єдиний <main> і єдиний провайдер вибору: поки оболонка змонтована,
+// перехід між сторінками не скидає останній вибір.
+// Шапка й підвал вибір не потребують і лишаються поза провайдером.
+export default function AppLayout({ title, links, items }) {
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -8,9 +14,11 @@ export default function AppLayout({ title, links, children }) {
       </a>
       <SiteHeader title={title} links={links} />
       <main id="main-content" tabIndex={-1}>
-        {children}
+        <ServiceSelectionProvider items={items}>
+          <Outlet />
+        </ServiceSelectionProvider>
       </main>
-      <footer>Каталог послуг і підготовка заявки.</footer>
+      <footer>Навчальний проєкт. Каталог послуг і підготовка заявки.</footer>
     </>
   )
 }

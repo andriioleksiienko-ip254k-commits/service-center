@@ -342,3 +342,89 @@ textarea:focus-visible {
   margin: 0.25rem 0 0;
   overflow-wrap: anywhere;
 }
+
+.site-title {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-title::before {
+  content: '›_ ';
+  opacity: 0.7;
+}
+
+.site-title:hover {
+  text-decoration: underline;
+}
+
+/* Пункти меню: активний розділ видно без залежності від кольору шапки */
+.nav-link {
+  color: inherit;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom-color: currentColor;
+  opacity: 0.85;
+}
+
+.nav-link.active {
+  font-weight: 700;
+  border-bottom-color: currentColor;
+}
+
+/* Заголовок картки каталогу тепер посилання на деталі */
+.service-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-card h3 a:hover,
+.service-card h3 a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Сторінка деталей: «талон» послуги */
+.service-details {
+  max-width: 42rem;
+  margin-block: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid #c7d2dc;
+  border-left: 6px solid #075a94;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.service-details .service-id {
+  color: #455b6b;
+}
+
+.service-details code {
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  background: #eef3f7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.service-details .details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #c7d2dc;
+}
+
+/* Сторінка «не знайдено» */
+.not-found-code {
+  margin: 0;
+  font: 700 4rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #075a94;
+  opacity: 0.35;
+}
