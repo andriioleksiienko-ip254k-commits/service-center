@@ -1,16 +1,20 @@
 import { Route, Routes } from 'react-router'
 import AppLayout from './components/layout/AppLayout.jsx'
+import RequestsLayout from './components/layout/RequestsLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import CatalogContainer from './pages/CatalogContainer.jsx'
 import ServiceDetailsPage from './pages/ServiceDetailsPage.jsx'
-import RequestContainer from './pages/RequestContainer.jsx'
+import RequestsPage from './pages/RequestsPage.jsx'
+import RequestCreatePage from './pages/RequestCreatePage.jsx'
+import RequestEditPage from './pages/RequestEditPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import { services } from './data/services.js'
+import { requests } from './data/requests.js'
 
 const navigationLinks = [
   { to: '/', label: 'Головна', end: true },
   { to: '/services', label: 'Каталог послуг' },
-  { to: '/requests/new', label: 'Підготовка заявки' },
+  { to: '/requests', label: 'Заявки' },
 ]
 
 export default function App() {
@@ -23,13 +27,26 @@ export default function App() {
         )}
       >
         <Route index element={<HomePage />} />
-        <Route path="services" element={<CatalogContainer items={services} />} />
-        <Route
-          path="services/:serviceId"
-          element={<ServiceDetailsPage items={services} />}
-        />
-        {/* Тимчасово: сторінка з Л 2.1. У кроці 7 замінюється на RequestCreatePage */}
-        <Route path="requests/new" element={<RequestContainer />} />
+
+        {/* Група шляхів без власного елемента */}
+        <Route path="services">
+          <Route index element={<CatalogContainer items={services} />} />
+          <Route path=":serviceId" element={<ServiceDetailsPage items={services} />} />
+        </Route>
+
+        {/* Розділ із власною вкладеною оболонкою та Outlet */}
+        <Route path="requests" element={<RequestsLayout />}>
+          <Route
+            index
+            element={<RequestsPage requests={requests} items={services} />}
+          />
+          <Route path="new" element={<RequestCreatePage items={services} />} />
+          <Route
+            path=":requestId/edit"
+            element={<RequestEditPage requests={requests} items={services} />}
+          />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

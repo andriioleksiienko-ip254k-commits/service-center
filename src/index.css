@@ -428,3 +428,43 @@ textarea:focus-visible {
   color: #075a94;
   opacity: 0.35;
 }
+/* Л 2.2, кроки 6-9: розділ заявок */
+.section-nav {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #c7d2dc;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.requests-table th,
+.requests-table td {
+  padding: 0.625rem;
+  border: 1px solid #c7d2dc;
+  text-align: left;
+  vertical-align: top;
+}
+
+.requests-table caption {
+  text-align: left;
+  margin-block: 0.75rem;
+}
+
+.draft-notice {
+  padding: 0.5rem 0.75rem;
+  border-left: 4px solid var(--warning);
+  background: #fff7ed;
+}

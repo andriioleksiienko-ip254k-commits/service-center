@@ -22,9 +22,9 @@ export default function RequestForm({
       aria-describedby={noticeId}
       onSubmit={(event) => event.preventDefault()}
     >
-      <p id={noticeId}>
-        Чернетка існує лише до зміни послуги, скасування вибору або
-        перезавантаження сторінки. Заявка не надсилається.
+      <p id={noticeId} className="draft-notice">
+        Зміни не зберігаються. Чернетка скидається при виході зі сторінки,
+        зміні послуги чи заявки або перезавантаженні. Надсилання ще недоступне.
       </p>
 
       <FormField id={serviceId} label="Послуга">
