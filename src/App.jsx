@@ -1,6 +1,7 @@
 import AppLayout from './components/layout/AppLayout.jsx'
-import HomePage from './pages/HomePage.jsx'
-import RequestPage from './pages/RequestPage.jsx'
+import ServiceSelectionProvider from './providers/ServiceSelectionProvider.jsx'
+import CatalogContainer from './pages/CatalogContainer.jsx'
+import RequestContainer from './pages/RequestContainer.jsx'
 import { services } from './data/services.js'
 
 const navigationLinks = [
@@ -10,13 +11,12 @@ const navigationLinks = [
 ]
 
 export default function App() {
-
-  const exampleItem = services.find((item) => item.id === 'srv-001')
-
   return (
     <AppLayout title="FixIT Service" links={navigationLinks}>
-      <HomePage />
-      <RequestPage item={exampleItem} />
+      <ServiceSelectionProvider items={services}>
+        <CatalogContainer items={services} />
+        <RequestContainer />
+      </ServiceSelectionProvider>
     </AppLayout>
   )
 }

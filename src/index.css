@@ -135,7 +135,6 @@ section {
 }
 
 .service-card p {
-  flex-grow: 1;
   margin-block: 0.5rem;
 }
 
@@ -259,6 +258,7 @@ footer {
   border-radius: 0.375rem;
   font: inherit;
   cursor: pointer;
+  margin: 5px;
 }
 
 .app-button-primary {
@@ -276,9 +276,69 @@ footer {
   cursor: default;
 }
 
+.selected-btn {
+  background: #08b20b;
+  color: white;
+}
+
+.margin-top {
+  margin-top: auto;
+}
+
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
   outline: 3px solid #075a94;
   outline-offset: 3px;
+}
+
+.catalog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin-block: 1rem;
+}
+
+.catalog-filters .form-field {
+  margin-block: 0;
+}
+
+.checkbox-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.service-card-selected {
+  border-color: #08b20b;
+  outline: 3px solid #08b20b;
+  outline-offset: -3px;
+}
+
+.selection-note {
+  font-weight: 600;
+  color: #075a94;
+}
+
+.request-summary {
+  margin-block: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #c7d2dc;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.request-summary h3 {
+  margin-top: 0;
+}
+
+.request-summary dt {
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.request-summary dd {
+  margin: 0.25rem 0 0;
+  overflow-wrap: anywhere;
 }

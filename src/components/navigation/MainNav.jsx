@@ -1,4 +1,3 @@
-// links: масив { href, label }, адреси без повторів
 export default function MainNav({ links }) {
   return (
     <nav aria-label="Основна навігація">
