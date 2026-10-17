@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router'
+import RequestNotice from '../requests/RequestNotice.jsx'
 
 // Вкладена оболонка розділу /requests: спільне меню для списку й редакторів.
 // h1 не додає (належить сторінці), нового провайдера вибору не створює.
@@ -27,6 +28,9 @@ export default function RequestsLayout() {
           </li>
         </ul>
       </nav>
+      <p className="field-hint">Локальні дані зберігаються до перезавантаження сторінки.</p>
+      {/* Повідомлення в спільній оболонці розділу переживає перехід між його сторінками */}
+      <RequestNotice />
       <Outlet />
     </>
   )

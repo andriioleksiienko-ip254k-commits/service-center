@@ -12,7 +12,7 @@ export default function HomePage() {
       <p>Ознайомтеся з нашим прайс-листом та перевірте доступність послуг.</p>
       <p><Link to="/services">Перейти до каталогу послуг</Link></p>
       <p><Link to="/requests/new">Підготувати заявку на ремонт</Link></p>
-      <p><Link to="/requests">Переглянути демонстраційні заявки</Link></p>
+      <p><Link to="/requests">Переглянути заявки</Link></p>
     </>
   )
 }

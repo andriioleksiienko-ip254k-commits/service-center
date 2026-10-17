@@ -3,6 +3,7 @@ const SUMMARY_FIELDS = [
   { field: 'brand', label: 'Виробник' },
   { field: 'model', label: 'Модель' },
   { field: 'problem', label: 'Опис несправності' },
+  { field: 'maxCost', label: 'Максимальна вартість, грн' },
 ]
 
 
@@ -16,7 +17,7 @@ export default function RequestSummary({ serviceName, draft }) {
         {SUMMARY_FIELDS.map(({ field, label }) => (
           <div key={field}>
             <dt>{label}</dt>
-            <dd>{draft[field].trim() || 'Ще не вказано'}</dd>
+            <dd>{String(draft[field] ?? '').trim() || 'Ще не вказано'}</dd>
           </div>
         ))}
       </dl>

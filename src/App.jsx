@@ -6,10 +6,10 @@ import CatalogContainer from './pages/CatalogContainer.jsx'
 import ServiceDetailsPage from './pages/ServiceDetailsPage.jsx'
 import RequestsPage from './pages/RequestsPage.jsx'
 import RequestCreatePage from './pages/RequestCreatePage.jsx'
+import RequestDetailsPage from './pages/RequestDetailsPage.jsx'
 import RequestEditPage from './pages/RequestEditPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import { services } from './data/services.js'
-import { requests } from './data/requests.js'
 
 const navigationLinks = [
   { to: '/', label: 'Головна', end: true },
@@ -38,12 +38,13 @@ export default function App() {
         <Route path="requests" element={<RequestsLayout />}>
           <Route
             index
-            element={<RequestsPage requests={requests} items={services} />}
+            element={<RequestsPage items={services} />}
           />
           <Route path="new" element={<RequestCreatePage items={services} />} />
+          <Route path=":requestId" element={<RequestDetailsPage items={services} />} />
           <Route
             path=":requestId/edit"
-            element={<RequestEditPage requests={requests} items={services} />}
+            element={<RequestEditPage items={services} />}
           />
         </Route>
 

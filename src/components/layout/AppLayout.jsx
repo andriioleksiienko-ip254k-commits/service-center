@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router'
 import SiteHeader from './SiteHeader.jsx'
 import ServiceSelectionProvider from '../../providers/ServiceSelectionProvider.jsx'
+import RequestsProvider from '../../providers/RequestsProvider.jsx'
 
 // Маршрут-оболонка: дочірня сторінка з'являється в Outlet.
 // Єдиний <main> і єдиний провайдер вибору: поки оболонка змонтована,
 // перехід між сторінками не скидає останній вибір.
 // Шапка й підвал вибір не потребують і лишаються поза провайдером.
+// Л 3.1: RequestsProvider (колекція заявок) теж вище змінюваних сторінок,
+// тому створений запис не губиться при переході між ними.
 export default function AppLayout({ title, links, items }) {
   return (
     <>
@@ -15,7 +18,9 @@ export default function AppLayout({ title, links, items }) {
       <SiteHeader title={title} links={links} />
       <main id="main-content" tabIndex={-1}>
         <ServiceSelectionProvider items={items}>
-          <Outlet />
+          <RequestsProvider items={items}>
+            <Outlet />
+          </RequestsProvider>
         </ServiceSelectionProvider>
       </main>
       <footer>Навчальний проєкт. Каталог послуг і підготовка заявки.</footer>

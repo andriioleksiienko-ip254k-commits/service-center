@@ -2,6 +2,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router'
 import PageHeading from '../components/ui/PageHeading.jsx'
 import EmptyState from '../components/ui/EmptyState.jsx'
 import useServiceSelection from '../hooks/useServiceSelection.js'
+import useRequests from '../hooks/useRequests.js'
 import RequestPage from './RequestPage.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 
@@ -12,6 +13,7 @@ export default function RequestCreatePage({ items }) {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { selectedId, clearSelection } = useServiceSelection()
+  const { createRequest } = useRequests()
   const serviceId = searchParams.get('serviceId')
 
   // Параметра немає: коректна сторінка з наступним кроком
@@ -47,6 +49,18 @@ export default function RequestCreatePage({ items }) {
     )
   }
 
+  // Л 3.1: операція створення з явним результатом. Перехід лише після успіху;
+  // відмова повертається редактору, введення залишається.
+  // Після успіху відкриваються деталі запису за поверненим id (не за станом,
+  // який ще не оновився); replace замінює адресу поданої форми.
+  function handleSave(value) {
+    const result = createRequest({ ...value, serviceId: item.id })
+    if (result.ok) {
+      navigate(`/requests/${encodeURIComponent(result.record.id)}`, { replace: true })
+    }
+    return result
+  }
+
   // Дія над спільним станом, потім перехід. replace замінює запис редактора,
   // щоб «Назад» не повертав до скасованої чернетки.
   function handleCancel() {
@@ -59,6 +73,8 @@ export default function RequestCreatePage({ items }) {
       key={`new-${item.id}`}
       title="Нова заявка"
       item={item}
+      onSave={handleSave}
+      submitLabel="Створити заявку"
       onCancel={handleCancel}
       cancelLabel="Скасувати чернетку й очистити вибір"
     />

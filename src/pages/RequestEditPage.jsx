@@ -1,20 +1,23 @@
 import { useNavigate, useParams } from 'react-router'
+import useRequests from '../hooks/useRequests.js'
 import RequestPage from './RequestPage.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 
 // /requests/:requestId/edit
 // Заявку вибирає параметр шляху, послугу: її serviceId. Останній вибір
 // з контексту тут не використовується: редагується конкретний запис з адреси.
-export default function RequestEditPage({ requests, items }) {
+// Л 3.1: заявка шукається в поточній колекції RequestsProvider.
+export default function RequestEditPage({ items }) {
   const { requestId } = useParams()
   const navigate = useNavigate()
+  const { requests, updateRequest } = useRequests()
   const request = requests.find((entry) => entry.id === requestId)
 
   if (!request) {
     return (
       <NotFoundPage
         title="Заявку не знайдено"
-        message="Перевірте ідентифікатор заявки в адресі."
+        message="Перевірте номер заявки в адресі. Після перезавантаження сторінки створені заявки зникають."
       />
     )
   }
@@ -30,8 +33,16 @@ export default function RequestEditPage({ requests, items }) {
     )
   }
 
-  // Збереження ще не реалізоване, тому вихід лише повертає до списку
-  // без повідомлення «Збережено».
+  // Операція оновлення: id запису не змінюється. Перехід лише після успіху;
+  // після успіху відкриваються деталі збереженого запису.
+  function handleSave(value) {
+    const result = updateRequest(request.id, { ...value, serviceId: request.serviceId })
+    if (result.ok) {
+      navigate(`/requests/${encodeURIComponent(result.record.id)}`, { replace: true })
+    }
+    return result
+  }
+
   return (
     <RequestPage
       key={`edit-${request.id}`}
@@ -42,8 +53,11 @@ export default function RequestEditPage({ requests, items }) {
         brand: request.brand,
         model: request.model,
         problem: request.problem,
+        maxCost: request.maxCost,
       }}
-      onCancel={() => navigate('/requests')}
+      onSave={handleSave}
+      submitLabel="Зберегти зміни"
+      onCancel={() => navigate(`/requests/${encodeURIComponent(request.id)}`)}
       cancelLabel="Вийти без збереження"
     />
   )
